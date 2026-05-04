@@ -1,0 +1,218 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id           String    @id @default(uuid())
+  email        String    @unique
+  passwordHash String    @map("password_hash")
+  role         Role
+  createdAt    DateTime  @default(now()) @map("created_at")
+  updatedAt    DateTime  @updatedAt @map("updated_at")
+  egresado     Egresado?
+  empresa      Empresa?
+  notificaciones Notificacion[]
+  reportes     Reporte[]
+  auditoriaLogs AuditoriaLog[]
+
+  @@map("users")
+}
+
+model Egresado {
+  id               String          @id @map("id")
+  user             User            @relation(fields: [id], references: [id], onDelete: Cascade)
+  nombres          String
+  apellidos        String
+  telefono         String?
+  carrera          String?
+  anioEgreso       Int?            @map("anio_egreso")
+  cvUrl            String?         @map("cv_url")
+  habilidadesBlandas String?        @map("habilidades_blandas")
+  fechaNacimiento  DateTime?       @map("fecha_nacimiento")
+  habilidades      EgresadoHabilidad[]
+  postulaciones    Postulacion[]
+
+  @@map("egresados")
+}
+
+model Empresa {
+  id            String   @id @map("id")
+  user          User     @relation(fields: [id], references: [id], onDelete: Cascade)
+  nombreEmpresa String   @map("nombre_empresa")
+  sector        String?
+  ubicacion     String?
+  website       String?
+  ofertas       Oferta[]
+
+  @@map("empresas")
+}
+
+model Habilidad {
+  id               String   @id @default(uuid())
+  nombre           String   @unique
+  categoria        CategoriaHabilidad
+  egresados        EgresadoHabilidad[]
+  ofertas          OfertaHabilidad[]
+
+  @@map("habilidades")
+}
+
+model EgresadoHabilidad {
+  egresadoId   String   @map("egresado_id")
+  habilidadId  String   @map("habilidad_id")
+  nivel        Int
+  egresado     Egresado @relation(fields: [egresadoId], references: [id])
+  habilidad    Habilidad @relation(fields: [habilidadId], references: [id])
+
+  @@id([egresadoId, habilidadId])
+  @@map("egresado_habilidad")
+}
+
+model Oferta {
+  id              String   @id @default(uuid())
+  empresaId       String   @map("empresa_id")
+  empresa         Empresa  @relation(fields: [empresaId], references: [id])
+  titulo          String
+  descripcion     String
+  ubicacion       String?
+  modalidad       Modalidad?
+  tipoContrato    String?  @map("tipo_contrato")
+  salarioMin      Int?     @map("salario_min")
+  salarioMax      Int?     @map("salario_max")
+  activa          Boolean  @default(true)
+  fechaPublicacion DateTime @default(now()) @map("fecha_publicacion")
+  fechaCierre     DateTime? @map("fecha_cierre")
+  habilidades     OfertaHabilidad[]
+  postulaciones   Postulacion[]
+
+  @@index([empresaId])
+  @@index([activa, fechaPublicacion])
+  @@index([modalidad])
+  @@map("ofertas")
+}
+
+model OfertaHabilidad {
+  ofertaId    String    @map("oferta_id")
+  habilidadId String    @map("habilidad_id")
+  oferta      Oferta    @relation(fields: [ofertaId], references: [id])
+  habilidad   Habilidad @relation(fields: [habilidadId], references: [id])
+
+  @@id([ofertaId, habilidadId])
+  @@map("oferta_habilidad")
+}
+
+model Postulacion {
+  id              String          @id @default(uuid())
+  ofertaId        String          @map("oferta_id")
+  egresadoId      String          @map("egresado_id")
+  estado          EstadoPostulacion @default(postulado)
+  fechaPostulacion DateTime        @default(now()) @map("fecha_postulacion")
+  fechaEstado     DateTime        @default(now()) @map("fecha_estado")
+  comentario      String?
+  oferta          Oferta          @relation(fields: [ofertaId], references: [id])
+  egresado        Egresado        @relation(fields: [egresadoId], references: [id])
+  historial       HistorialEstado[]
+
+  @@unique([ofertaId, egresadoId])
+  @@index([ofertaId])
+  @@index([egresadoId])
+  @@index([estado, fechaPostulacion])
+  @@map("postulaciones")
+}
+
+model HistorialEstado {
+  id              String          @id @default(uuid())
+  postulacionId   String          @map("postulacion_id")
+  estadoAnterior  String?         @map("estado_anterior")
+  estadoNuevo     String
+  fechaCambio     DateTime        @default(now()) @map("fecha_cambio")
+  cambiadoPor     String?         @map("cambiado_por")
+  postulacion     Postulacion     @relation(fields: [postulacionId], references: [id])
+
+  @@map("historial_estados")
+}
+
+model Notificacion {
+  id            String   @id @default(uuid())
+  usuarioId     String   @map("usuario_id")
+  tipo          TipoNotificacion
+  asunto        String?
+  contenido     String
+  leida         Boolean  @default(false)
+  fechaCreacion DateTime @default(now()) @map("fecha_creacion")
+  fechaEnvio    DateTime? @map("fecha_envio")
+  usuario       User     @relation(fields: [usuarioId], references: [id])
+
+  @@index([usuarioId, leida])
+  @@map("notificaciones")
+}
+
+model Reporte {
+  id              String   @id @default(uuid())
+  usuarioId       String   @map("usuario_id")
+  tipoReporte     String   @map("tipo_reporte")
+  filtrosAplicados Json?    @map("filtros_aplicados")
+  urlPdf          String?  @map("url_pdf")
+  estado          EstadoReporte @default(en_cola)
+  fechaSolicitud  DateTime @default(now()) @map("fecha_solicitud")
+  fechaCompletado DateTime? @map("fecha_completado")
+  usuario         User     @relation(fields: [usuarioId], references: [id])
+
+  @@index([usuarioId, estado])
+  @@map("reportes")
+}
+
+model AuditoriaLog {
+  id          String   @id @default(uuid())
+  usuarioId   String?  @map("usuario_id")
+  accion      String
+  entidad     String
+  datosPrevios Json?   @map("datos_previos")
+  datosNuevos Json?    @map("datos_nuevos")
+  fecha       DateTime @default(now())
+  usuario     User?    @relation(fields: [usuarioId], references: [id])
+
+  @@map("auditoria_logs")
+}
+
+enum Role {
+  admin
+  egresado
+  empresa
+}
+
+enum CategoriaHabilidad {
+  tecnica
+  blanda
+}
+
+enum Modalidad {
+  remoto
+  hibrido
+  presencial
+}
+
+enum EstadoPostulacion {
+  postulado
+  revision
+  entrevista
+  contratado
+  rechazado
+}
+
+enum TipoNotificacion {
+  email
+  interna
+}
+
+enum EstadoReporte {
+  en_cola
+  procesando
+  completado
+  error
+}
