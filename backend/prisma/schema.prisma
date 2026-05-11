@@ -86,7 +86,9 @@ model Oferta {
   salarioMax      Int?     @map("salario_max")
   activa          Boolean  @default(true)
   fechaPublicacion DateTime @default(now()) @map("fecha_publicacion")
-  fechaCierre     DateTime? @map("fecha_cierre")
+  fechaCierre     DateTime? @map("fecha_cierre")  
+  vacantes        Int      @default(1) @map("vacantes") 
+  vacantesCubiertas Int    @default(0) @map("vacantes_cubiertas") 
   habilidades     OfertaHabilidad[]
   postulaciones   Postulacion[]
 

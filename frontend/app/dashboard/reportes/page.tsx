@@ -1,70 +1,158 @@
-// app/dashboard/egresados/page.tsx
 'use client';
 import { useState } from 'react';
-import { Search, Plus } from 'lucide-react';
-import { Input } from '@/components/ui/input';
-import { Button } from '@/components/ui/button';
 import { trpc } from '@/lib/trpc/trpc';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { toast } from 'sonner';
+import { Download, FileText, Loader2 } from 'lucide-react';
+import { format } from 'date-fns';
+import { es } from 'date-fns/locale';
 
-interface Egresado {
+// Definir el tipo de Reporte para evitar la recursión infinita
+interface Reporte {
   id: string;
-  nombres: string;
-  apellidos: string;
-  carrera: string;
-  anioEgreso: number;     // ← camelCase, como está en la BD/Prisma
+  tipoReporte: string;
+  filtrosAplicados: Record<string, any> | null;
+  urlPdf: string | null;
+  estado: 'en_cola' | 'procesando' | 'completado' | 'error';
+  fechaSolicitud: string | Date;
+  fechaCompletado: string | Date | null;
+  usuarioId: string;
 }
 
-export default function EgresadosPage() {
-  const [search, setSearch] = useState('');
-  const { data: egresados, isLoading } = trpc.egresados_list.useQuery<Egresado[]>(
-    { carrera: search || undefined }
-  );
+const REPORT_TYPES = [
+  { value: 'empleabilidad', label: 'Reporte de Empleabilidad' },
+  { value: 'ofertas_activas', label: 'Ofertas Activas' },
+  { value: 'demanda_habilidades', label: 'Demanda de Habilidades' },
+];
 
-  if (isLoading) return <div className="p-8 text-center">Cargando...</div>;
+export default function ReportesPage() {
+  const [tipo, setTipo] = useState('empleabilidad');
+  const [filtros, setFiltros] = useState({ fechaDesde: '', fechaHasta: '' });
+  
+  const solicitarMutation = trpc.reportes.solicitar.useMutation();
+  // 👇 Tipar explícitamente la respuesta
+// En lugar de tipar con <Reporte[]>, usa as
+  const { data: reportes, refetch } = trpc.reportes.listar.useQuery() as { data: Reporte[] | undefined; refetch: () => void };
+
+  const handleGenerar = async () => {
+    try {
+      await solicitarMutation.mutateAsync({ tipo, filtros });
+      toast.success('Reporte solicitado. Se generará en breve.');
+      refetch();
+    } catch (error) {
+      toast.error('Error al solicitar el reporte');
+    }
+  };
+
+  const handleDescargar = (reporte: Reporte) => {
+  if (reporte.urlPdf) {
+    // Si la URL termina en .html, abrir como HTML
+    window.open(reporte.urlPdf, '_blank');
+  } else {
+    toast.error('El reporte aún no está listo');
+  }
+};
 
   return (
-    <div className="space-y-4">
-      <div className="flex flex-col sm:flex-row justify-between gap-4">
-        <div className="relative max-w-sm">
-          <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-gray-400" />
-          <Input
-            placeholder="Buscar por nombre o carrera..."
-            className="pl-9 bg-white dark:bg-gray-800 border-gray-300 dark:border-gray-600"
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
-          />
-        </div>
-        <Button className="bg-primary-600 hover:bg-primary-700 text-white shadow-sm">
-          <Plus className="mr-2 h-4 w-4" /> Nuevo egresado
-        </Button>
+    <div className="space-y-6">
+      <div>
+        <h1 className="text-2xl font-bold">Generación de Reportes</h1>
+        <p className="text-gray-500">Selecciona el tipo de reporte y los filtros para generar un documento PDF</p>
       </div>
 
-      <div className="rounded-md border border-gray-200 dark:border-gray-700 overflow-hidden bg-white dark:bg-gray-800 shadow-sm">
-        <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
-          <thead className="bg-gray-50 dark:bg-gray-900">
-            <tr>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Nombres</th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Carrera</th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Año egreso</th>
-              <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">Acciones</th>
-            </tr>
-          </thead>
-          <tbody className="divide-y divide-gray-200 dark:divide-gray-700">
-            {egresados?.map((eg) => (
-              <tr key={eg.id} className="hover:bg-gray-50 dark:hover:bg-gray-700/50 transition">
-                <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-white">
-                  {eg.nombres} {eg.apellidos}
-                </td>
-                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-600 dark:text-gray-300">{eg.carrera}</td>
-                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-600 dark:text-gray-300">{eg.anioEgreso}</td>
-                <td className="px-6 py-4 whitespace-nowrap text-right text-sm">
-                  <Button variant="ghost" size="sm" className="text-primary-600">Ver</Button>
-                  <Button variant="ghost" size="sm" className="text-red-600 hover:text-red-700">Eliminar</Button>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+      <div className="grid gap-6 md:grid-cols-2">
+        {/* Formulario de generación */}
+        <Card>
+          <CardHeader>
+            <CardTitle>Nuevo Reporte</CardTitle>
+            <CardDescription>Configura los parámetros del reporte</CardDescription>
+          </CardHeader>
+          <CardContent className="space-y-4">
+            <div className="space-y-2">
+              <Label>Tipo de Reporte</Label>
+              <Select value={tipo} onValueChange={setTipo}>
+                <SelectTrigger>
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  {REPORT_TYPES.map(t => (
+                    <SelectItem key={t.value} value={t.value}>{t.label}</SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
+            <div className="space-y-2">
+              <Label>Fecha Desde (opcional)</Label>
+              <Input 
+                type="date" 
+                value={filtros.fechaDesde} 
+                onChange={(e) => setFiltros({ ...filtros, fechaDesde: e.target.value })} 
+              />
+            </div>
+            <div className="space-y-2">
+              <Label>Fecha Hasta (opcional)</Label>
+              <Input 
+                type="date" 
+                value={filtros.fechaHasta} 
+                onChange={(e) => setFiltros({ ...filtros, fechaHasta: e.target.value })} 
+              />
+            </div>
+            <Button 
+              onClick={handleGenerar} 
+              disabled={solicitarMutation.isLoading} 
+              className="w-full"
+            >
+              {solicitarMutation.isLoading ? (
+                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+              ) : (
+                <FileText className="mr-2 h-4 w-4" />
+              )}
+              Generar Reporte
+            </Button>
+          </CardContent>
+        </Card>
+
+        {/* Lista de reportes generados */}
+        <Card>
+          <CardHeader>
+            <CardTitle>Reportes Generados</CardTitle>
+            <CardDescription>Historial de reportes solicitados</CardDescription>
+          </CardHeader>
+          <CardContent>
+            <div className="space-y-3">
+              {(!reportes || reportes.length === 0) && (
+                <p className="text-center text-gray-500 py-8">No hay reportes generados aún</p>
+              )}
+              {reportes?.map((reporte) => (
+                <div key={reporte.id} className="flex items-center justify-between p-3 border rounded-lg">
+                  <div>
+                    <p className="font-medium">
+                      {REPORT_TYPES.find(t => t.value === reporte.tipoReporte)?.label || reporte.tipoReporte}
+                    </p>
+                    <p className="text-sm text-gray-500">
+                      {format(new Date(reporte.fechaSolicitud), "dd 'de' MMMM 'de' yyyy, HH:mm", { locale: es })}
+                    </p>
+                    <p className="text-xs text-gray-400">
+                      Estado: {reporte.estado === 'completado' ? '✅ Listo' : reporte.estado === 'en_cola' ? '⏳ En cola' : '🔄 Generando...'}
+                    </p>
+                  </div>
+                  <Button 
+                    variant="outline" 
+                    size="sm" 
+                    onClick={() => handleDescargar(reporte)} 
+                    disabled={reporte.estado !== 'completado'}
+                  >
+                    <Download className="h-4 w-4" />
+                  </Button>
+                </div>
+              ))}
+            </div>
+          </CardContent>
+        </Card>
       </div>
     </div>
   );

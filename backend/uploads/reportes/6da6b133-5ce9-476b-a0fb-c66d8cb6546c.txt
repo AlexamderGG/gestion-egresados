@@ -1,0 +1,26 @@
+
+REPORTE DE EMPLEABILIDAD
+=======================
+Generado: 10/5/2026, 2:09:34 p.m.
+
+FILTROS APLICADOS:
+- Desde: 2022-01-10
+- Hasta: 2026-05-10
+
+INDICADORES:
+- Total Egresados: 11
+- Egresados Contratados: 9
+- Tasa de Empleabilidad: 81.82%
+
+CARRERAS:
+- Ingeniería de Software: 1 egresados
+- Ingeniería Informática: 1 egresados
+- Sistemas: 2 egresados
+- Software: 2 egresados
+- Informática: 1 egresados
+- Datos: 1 egresados
+- Redes: 1 egresados
+- Ing. Sistemas: 1 egresados
+- Ciencia de Datos: 1 egresados
+
+        

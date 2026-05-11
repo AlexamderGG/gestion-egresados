@@ -1,0 +1,10 @@
+REPORTE: EMPLEABILIDAD
+Generado: 10/5/2026, 1:42:49 p.m.
+Filtros: {
+  "fechaDesde": "2022-01-10",
+  "fechaHasta": "2026-05-10"
+}
+
+Total egresados: 11
+Egresados contratados: 9
+Tasa empleabilidad: 81.82%

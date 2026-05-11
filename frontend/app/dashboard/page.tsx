@@ -10,7 +10,7 @@ export default function DashboardHome() {
   useEffect(() => {
     if (!isLoading) {
       if (user?.role === 'admin') router.push('/dashboard/admin');
-      else if (user?.role === 'egresado') router.push('/dashboard/egresado');
+      else if (user?.role === 'egresado') router.push('/dashboard/ofertas');
       else if (user?.role === 'empresa') router.push('/dashboard/empresa');
       else router.push('/login');
     }

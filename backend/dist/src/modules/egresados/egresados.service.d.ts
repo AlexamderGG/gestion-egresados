@@ -8,17 +8,17 @@ export declare class EgresadosService {
         userId: string;
     }): Promise<{
         habilidades: {
+            egresadoId: string;
             habilidadId: string;
             nivel: number;
-            egresadoId: string;
         }[];
     } & {
         id: string;
-        carrera: string | null;
-        anioEgreso: number | null;
         nombres: string;
         apellidos: string;
         telefono: string | null;
+        carrera: string | null;
+        anioEgreso: number | null;
         cvUrl: string | null;
         habilidadesBlandas: string | null;
         fechaNacimiento: Date | null;
@@ -34,26 +34,26 @@ export declare class EgresadosService {
                 categoria: import(".prisma/client").$Enums.CategoriaHabilidad;
             };
         } & {
+            egresadoId: string;
             habilidadId: string;
             nivel: number;
-            egresadoId: string;
         })[];
     } & {
         id: string;
-        carrera: string | null;
-        anioEgreso: number | null;
         nombres: string;
         apellidos: string;
         telefono: string | null;
+        carrera: string | null;
+        anioEgreso: number | null;
         cvUrl: string | null;
         habilidadesBlandas: string | null;
         fechaNacimiento: Date | null;
     })[]>;
     findOne(id: string): Promise<{
         user: {
+            id: string;
             email: string;
             role: import(".prisma/client").$Enums.Role;
-            id: string;
             passwordHash: string;
             createdAt: Date;
             updatedAt: Date;
@@ -65,14 +65,14 @@ export declare class EgresadosService {
                 categoria: import(".prisma/client").$Enums.CategoriaHabilidad;
             };
         } & {
+            egresadoId: string;
             habilidadId: string;
             nivel: number;
-            egresadoId: string;
         })[];
         postulaciones: {
             id: string;
-            egresadoId: string;
             ofertaId: string;
+            egresadoId: string;
             estado: import(".prisma/client").$Enums.EstadoPostulacion;
             fechaPostulacion: Date;
             fechaEstado: Date;
@@ -80,33 +80,33 @@ export declare class EgresadosService {
         }[];
     } & {
         id: string;
-        carrera: string | null;
-        anioEgreso: number | null;
         nombres: string;
         apellidos: string;
         telefono: string | null;
+        carrera: string | null;
+        anioEgreso: number | null;
         cvUrl: string | null;
         habilidadesBlandas: string | null;
         fechaNacimiento: Date | null;
     }>;
     update(id: string, data: UpdateEgresadoDto): Promise<{
         id: string;
-        carrera: string | null;
-        anioEgreso: number | null;
         nombres: string;
         apellidos: string;
         telefono: string | null;
+        carrera: string | null;
+        anioEgreso: number | null;
         cvUrl: string | null;
         habilidadesBlandas: string | null;
         fechaNacimiento: Date | null;
     }>;
     remove(id: string): Promise<{
         id: string;
-        carrera: string | null;
-        anioEgreso: number | null;
         nombres: string;
         apellidos: string;
         telefono: string | null;
+        carrera: string | null;
+        anioEgreso: number | null;
         cvUrl: string | null;
         habilidadesBlandas: string | null;
         fechaNacimiento: Date | null;

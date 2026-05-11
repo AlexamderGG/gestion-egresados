@@ -23,35 +23,56 @@ let DashboardService = class DashboardService {
     }
     async getGlobalKpis() {
         const cacheKey = 'dashboard:kpis';
-        const cached = await this.redis.get(cacheKey);
-        if (cached)
-            return JSON.parse(cached);
-        const [totalEgresados, totalEmpresas, ofertasActivas, tasaEmpleabilidad] = await Promise.all([
+        try {
+            const cached = await this.redis.get(cacheKey);
+            if (cached)
+                return JSON.parse(cached);
+        }
+        catch (err) {
+            console.warn('Redis no disponible:', err);
+        }
+        const [totalEgresados, totalEmpresas, ofertasActivas] = await Promise.all([
             this.prisma.egresado.count(),
             this.prisma.empresa.count(),
             this.prisma.oferta.count({ where: { activa: true } }),
-            this.prisma.$queryRaw `SELECT tasa_empleabilidad FROM mv_empleabilidad_por_carrera LIMIT 1`,
         ]);
-        const result = { totalEgresados, totalEmpresas, ofertasActivas, tasaEmpleabilidad: 0 };
-        await this.redis.setex(cacheKey, 300, JSON.stringify(result));
+        const contratados = await this.prisma.postulacion.groupBy({
+            by: ['egresadoId'],
+            where: { estado: 'contratado' },
+        });
+        const totalContratados = contratados.length;
+        const tasaEmpleabilidad = totalEgresados === 0 ? 0 : (totalContratados / totalEgresados) * 100;
+        const result = { totalEgresados, totalEmpresas, ofertasActivas, tasaEmpleabilidad: Math.round(tasaEmpleabilidad) };
+        try {
+            await this.redis.setex(cacheKey, 300, JSON.stringify(result));
+        }
+        catch (err) {
+        }
         return result;
     }
     async getOfertasVsPostulacionesMensual(anio) {
         const data = await this.prisma.$queryRaw `
-      SELECT 
-        EXTRACT(MONTH FROM fecha_publicacion) as mes,
-        COUNT(DISTINCT o.id) as ofertas,
-        COUNT(p.id) as postulaciones
-      FROM ofertas o
-      LEFT JOIN postulaciones p ON o.id = p.oferta_id
-      WHERE EXTRACT(YEAR FROM fecha_publicacion) = ${anio}
-      GROUP BY mes
-      ORDER BY mes
-    `;
+    SELECT 
+      EXTRACT(MONTH FROM fecha_publicacion)::int as mes,
+      COUNT(DISTINCT o.id) as ofertas,
+      COUNT(p.id) as postulaciones
+    FROM ofertas o
+    LEFT JOIN postulaciones p ON o.id = p.oferta_id
+    WHERE EXTRACT(YEAR FROM fecha_publicacion) = ${anio}
+    GROUP BY mes
+    ORDER BY mes
+  `;
         return data;
     }
     async getDemandaHabilidades() {
-        return this.prisma.$queryRaw `SELECT * FROM mv_demanda_habilidades ORDER BY cantidad_ofertas DESC LIMIT 10`;
+        try {
+            const result = await this.prisma.$queryRaw `SELECT * FROM mv_demanda_habilidades ORDER BY cantidad_ofertas DESC LIMIT 10`;
+            return result || [];
+        }
+        catch (error) {
+            console.warn('Error obteniendo habilidades:', error);
+            return [];
+        }
     }
 };
 exports.DashboardService = DashboardService;

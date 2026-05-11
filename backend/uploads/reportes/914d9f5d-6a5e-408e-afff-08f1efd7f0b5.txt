@@ -1,0 +1,19 @@
+
+REPORTE DE OFERTAS ACTIVAS
+==========================
+Generado: 10/5/2026, 2:10:08 p.m.
+
+TOTAL OFERTAS: 10
+
+OFERTAS:
+- Desarrollador Full Stack (remoto) - TechCorp S.A.
+- Ingeniero de Datos (hibrido) - TechCorp S.A.
+- Backend Developer Node.js (remoto) - Innovatech Solutions
+- Frontend React (presencial) - Innovatech Solutions
+- Científico de Datos (hibrido) - DataSys Peru
+- Analista de Datos (remoto) - DataSys Peru
+- Consultor TI (presencial) - Consultora Estratégica
+- DevOps Engineer (remoto) - Startup Hub
+- Desarrollador Junior (presencial) - TechCorp S.A.
+- Trainee Backend (remoto) - Innovatech Solutions
+        

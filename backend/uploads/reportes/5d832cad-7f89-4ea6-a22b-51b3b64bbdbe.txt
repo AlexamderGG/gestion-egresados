@@ -1,0 +1,39 @@
+REPORTE: OFERTAS_ACTIVAS
+Generado: 10/5/2026, 1:16:43 p.m.
+Filtros: {
+  "fechaDesde": "2023-01-10",
+  "fechaHasta": "2026-05-10"
+}
+
+Total ofertas activas: 10
+
+- Desarrollador Full Stack (remoto)
+  Oferta para Desarrollador Full Stack - Excelente oportunidad...
+
+- Ingeniero de Datos (hibrido)
+  Oferta para Ingeniero de Datos - Excelente oportunidad...
+
+- Backend Developer Node.js (remoto)
+  Oferta para Backend Developer Node.js - Excelente oportunidad...
+
+- Frontend React (presencial)
+  Oferta para Frontend React - Excelente oportunidad...
+
+- Científico de Datos (hibrido)
+  Oferta para Científico de Datos - Excelente oportunidad...
+
+- Analista de Datos (remoto)
+  Oferta para Analista de Datos - Excelente oportunidad...
+
+- Consultor TI (presencial)
+  Oferta para Consultor TI - Excelente oportunidad...
+
+- DevOps Engineer (remoto)
+  Oferta para DevOps Engineer - Excelente oportunidad...
+
+- Desarrollador Junior (presencial)
+  Oferta para Desarrollador Junior - Excelente oportunidad...
+
+- Trainee Backend (remoto)
+  Oferta para Trainee Backend - Excelente oportunidad...
+

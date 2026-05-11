@@ -25,7 +25,11 @@ const habilidadSchema = z.object({
 
 const egresadoSchema = z.object({
   email: z.string().email('Email inválido'),
-  password: z.string().min(6, 'Mínimo 6 caracteres'),
+  password: z.string()
+  .min(6, 'La contraseña debe tener al menos 6 caracteres')
+  .regex(/[A-Z]/, 'Debe contener al menos una letra mayúscula')
+  .regex(/[a-z]/, 'Debe contener al menos una letra minúscula')
+  .regex(/[0-9]/, 'Debe contener al menos un número'),
   nombres: z.string().min(1, 'Nombres requeridos'),
   apellidos: z.string().min(1, 'Apellidos requeridos'),
   telefono: z.string().optional(),
@@ -60,15 +64,24 @@ export function NuevoEgresadoModal({ onSuccess }: { onSuccess?: () => void }) {
     console.log('Datos enviados:', data);  // <-- agregar esta línea
     createMutation.mutate({
       ...data,
-      fechaNacimiento: data.fechaNacimiento ? new Date(data.fechaNacimiento) : undefined,
-      anioEgreso: Number(data.anioEgreso)
+      email: data.email,
+      password: data.password,
+      nombres: data.nombres,
+      apellidos: data.apellidos,
+      telefono: data.telefono,
+      carrera: data.carrera,
+      anioEgreso: Number(data.anioEgreso),
+      cvUrl: data.cvUrl || undefined,
+      habilidadesBlandas: data.habilidadesBlandas,
+      fechaNacimiento: data.fechaNacimiento, // ← string directamente (ej. "1990-01-01")
+      habilidades: data.habilidades.map(h => ({ habilidadId: h.habilidadId, nivel: h.nivel })),
     });
   };
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button className="bg-blue-600 hover:bg-blue-700 text-white">
+        <Button className="gradient-bg text-white shadow-md hover:shadow-lg transition-all duration-300">
           + Nuevo egresado
         </Button>
       </DialogTrigger>
@@ -86,38 +99,48 @@ export function NuevoEgresadoModal({ onSuccess }: { onSuccess?: () => void }) {
             <div>
               <Label>Apellidos</Label>
               <Input {...form.register('apellidos')} />
+              {form.formState.errors.apellidos && <p className="text-red-500 text-sm">{form.formState.errors.apellidos.message}</p>}
             </div>
             <div>
               <Label>Email</Label>
               <Input type="email" {...form.register('email')} />
+              {form.formState.errors.email && <p className="text-red-500 text-sm">{form.formState.errors.email.message}</p>}
             </div>
             <div>
               <Label>Contraseña</Label>
               <Input type="password" {...form.register('password')} />
+              {form.formState.errors.password && 
+                <p className="text-red-500 text-sm">{form.formState.errors.password.message}</p>}
             </div>
             <div>
               <Label>Teléfono</Label>
               <Input {...form.register('telefono')} />
+              {form.formState.errors.telefono && <p className="text-red-500 text-sm">{form.formState.errors.telefono.message}</p>}
             </div>
             <div>
               <Label>Carrera</Label>
               <Input {...form.register('carrera')} />
+              {form.formState.errors.carrera && <p className="text-red-500 text-sm">{form.formState.errors.carrera.message}</p>}
             </div>
             <div>
               <Label>Año de egreso</Label>
               <Input type="number" {...form.register('anioEgreso', { valueAsNumber: true })} />
+              {form.formState.errors.anioEgreso && <p className="text-red-500 text-sm">{form.formState.errors.anioEgreso.message}</p>}
             </div>
             <div>
               <Label>URL del CV</Label>
               <Input {...form.register('cvUrl')} placeholder="https://..." />
+              {form.formState.errors.cvUrl && <p className="text-red-500 text-sm">{form.formState.errors.cvUrl.message}</p>}
             </div>
             <div className="col-span-2">
               <Label>Habilidades blandas</Label>
               <Input {...form.register('habilidadesBlandas')} />
+              {form.formState.errors.habilidadesBlandas && <p className="text-red-500 text-sm">{form.formState.errors.habilidadesBlandas.message}</p>}
             </div>
             <div className="col-span-2">
               <Label>Fecha de nacimiento</Label>
               <Input type="date" {...form.register('fechaNacimiento')} />
+              {form.formState.errors.fechaNacimiento && <p className="text-red-500 text-sm">{form.formState.errors.fechaNacimiento.message}</p>}
             </div>
           </div>
           {/* Habilidades técnicas */}

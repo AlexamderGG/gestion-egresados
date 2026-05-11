@@ -8,13 +8,30 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AppModule = void 0;
 const common_1 = require("@nestjs/common");
+const config_1 = require("@nestjs/config");
 const trpc_module_1 = require("./trpc/trpc.module");
+const auth_module_1 = require("./modules/auth/auth.module");
+const egresados_module_1 = require("./modules/egresados/egresados.module");
+const reportes_module_1 = require("./modules/reportes/reportes.module");
+const uploads_controller_1 = require("./uploads/uploads.controller");
+const cron_service_1 = require("./services/cron.service");
+const prisma_service_1 = require("./prisma/prisma.service");
+const schedule_1 = require("@nestjs/schedule");
 let AppModule = class AppModule {
 };
 exports.AppModule = AppModule;
 exports.AppModule = AppModule = __decorate([
     (0, common_1.Module)({
-        imports: [trpc_module_1.TrpcModule,],
+        imports: [
+            config_1.ConfigModule.forRoot({ isGlobal: true }),
+            schedule_1.ScheduleModule.forRoot(),
+            auth_module_1.AuthModule,
+            egresados_module_1.EgresadosModule,
+            reportes_module_1.ReportesModule,
+            trpc_module_1.TrpcModule,
+        ],
+        controllers: [uploads_controller_1.UploadsController],
+        providers: [cron_service_1.CronService, prisma_service_1.PrismaService],
     })
 ], AppModule);
 //# sourceMappingURL=app.module.js.map

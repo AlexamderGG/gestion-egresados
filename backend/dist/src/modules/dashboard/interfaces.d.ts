@@ -2,7 +2,7 @@ export interface KpiResult {
     totalEgresados: number;
     totalEmpresas: number;
     ofertasActivas: number;
-    tasaEmpleabilidad: any;
+    tasaEmpleabilidad: number;
 }
 export interface OfertaDemandaMensual {
     mes: number;

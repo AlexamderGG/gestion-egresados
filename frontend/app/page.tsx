@@ -1,11 +1,30 @@
-// frontend/app/page.tsx
+// app/page.tsx
+'use client';
+import { useEffect } from 'react';
+import { useRouter } from 'next/navigation';
+
 export default function HomePage() {
+  const router = useRouter();
+
+  useEffect(() => {
+    // Verificar si hay token en localStorage
+    const token = localStorage.getItem('token');
+    
+    if (token) {
+      // Si hay token, redirigir al dashboard
+      router.push('/dashboard');
+    } else {
+      // Si no hay token, redirigir al login
+      router.push('/login');
+    }
+  }, [router]);
+
+  // Mostrar loading mientras redirige
   return (
-    <div className="flex min-h-screen items-center justify-center">
+    <div className="flex h-screen items-center justify-center bg-gradient-to-br from-slate-50 to-slate-100">
       <div className="text-center">
-        <h1 className="text-4xl font-bold">Bienvenido al Sistema de Gestión de Egresados</h1>
-        <p className="mt-4 text-lg">El servidor Next.js está funcionando correctamente.</p>
-        <p className="mt-2">Accede al <a href="/dashboard" className="text-blue-600 underline">dashboard</a></p>
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto"></div>
+        <p className="mt-4 text-gray-600">Redirigiendo...</p>
       </div>
     </div>
   );
