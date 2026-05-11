@@ -2,13 +2,16 @@
   "compilerOptions": {
     "ignoreDeprecations": "5.0",
     "baseUrl": "./",
+    "paths": {
+      "@/*": ["src/*"]
+    },
+    "target": "ES2021",
     "module": "commonjs",
     "declaration": true,
     "removeComments": true,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "allowSyntheticDefaultImports": true,
-    "target": "ES2021",
     "sourceMap": true,
     "outDir": "./dist",
     "incremental": true,
@@ -20,9 +23,6 @@
     "noFallthroughCasesInSwitch": false,
     "esModuleInterop": true,
     "jsx": "react-jsx",               // ← línea agregada
-    "paths": {
-      "@/*": ["src/*"]
-    }
   },
   "include": ["src/**/*", "prisma/**/*"],
   "exclude": ["node_modules", "dist"]
