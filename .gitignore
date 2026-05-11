@@ -1,0 +1,16 @@
+# Dependencias (NUNCA subir)
+**/node_modules/
+**/.next/
+**/dist/
+**/build/
+
+# Variables de entorno
+.env
+.env.local
+backend/.env
+frontend/.env.local
+
+# Archivos grandes y logs
+*.log
+*.node
+uploads/
