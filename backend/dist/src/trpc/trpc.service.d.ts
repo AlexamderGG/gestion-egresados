@@ -58,12 +58,12 @@ export declare class TrpcService {
                 }>;
                 _meta: object;
                 _ctx_out: {
-                    prisma: import("../prisma/prisma.service").PrismaService;
                     user: {
                         id: string;
                         email: string;
                         role: string;
                     };
+                    prisma: import("../prisma/prisma.service").PrismaService;
                 };
                 _input_in: typeof import("@trpc/server").unsetMarker;
                 _input_out: typeof import("@trpc/server").unsetMarker;
@@ -90,12 +90,12 @@ export declare class TrpcService {
                 }>;
                 _meta: object;
                 _ctx_out: {
-                    prisma: import("../prisma/prisma.service").PrismaService;
                     user: {
                         id: string;
                         email: string;
                         role: string;
                     };
+                    prisma: import("../prisma/prisma.service").PrismaService;
                 };
                 _input_in: typeof import("@trpc/server").unsetMarker;
                 _input_out: typeof import("@trpc/server").unsetMarker;
@@ -111,12 +111,12 @@ export declare class TrpcService {
                 }>;
                 _meta: object;
                 _ctx_out: {
-                    prisma: import("../prisma/prisma.service").PrismaService;
                     user: {
                         id: string;
                         email: string;
                         role: string;
                     };
+                    prisma: import("../prisma/prisma.service").PrismaService;
                 };
                 _input_in: {
                     anio: number;
@@ -136,12 +136,12 @@ export declare class TrpcService {
                 }>;
                 _meta: object;
                 _ctx_out: {
-                    prisma: import("../prisma/prisma.service").PrismaService;
                     user: {
                         id: string;
                         email: string;
                         role: string;
                     };
+                    prisma: import("../prisma/prisma.service").PrismaService;
                 };
                 _input_in: typeof import("@trpc/server").unsetMarker;
                 _input_out: typeof import("@trpc/server").unsetMarker;
@@ -164,12 +164,12 @@ export declare class TrpcService {
             }>;
             _meta: object;
             _ctx_out: {
-                prisma: import("../prisma/prisma.service").PrismaService;
                 user: {
                     id: string;
                     email: string;
                     role: string;
                 };
+                prisma: import("../prisma/prisma.service").PrismaService;
             };
             _input_in: {
                 carrera?: string;
@@ -192,17 +192,17 @@ export declare class TrpcService {
                     categoria: import(".prisma/client").$Enums.CategoriaHabilidad;
                 };
             } & {
+                egresadoId: string;
                 habilidadId: string;
                 nivel: number;
-                egresadoId: string;
             })[];
         } & {
             id: string;
-            carrera: string | null;
-            anioEgreso: number | null;
             nombres: string;
             apellidos: string;
             telefono: string | null;
+            carrera: string | null;
+            anioEgreso: number | null;
             cvUrl: string | null;
             habilidadesBlandas: string | null;
             fechaNacimiento: Date | null;
@@ -234,12 +234,12 @@ export declare class TrpcService {
             }>;
             _meta: object;
             _ctx_out: {
-                prisma: import("../prisma/prisma.service").PrismaService;
                 user: {
                     id: string;
                     email: string;
                     role: string;
                 };
+                prisma: import("../prisma/prisma.service").PrismaService;
             };
             _input_in: {
                 email: string;
@@ -278,19 +278,19 @@ export declare class TrpcService {
         }, {
             egresado: {
                 id: string;
-                carrera: string | null;
-                anioEgreso: number | null;
                 nombres: string;
                 apellidos: string;
                 telefono: string | null;
+                carrera: string | null;
+                anioEgreso: number | null;
                 cvUrl: string | null;
                 habilidadesBlandas: string | null;
                 fechaNacimiento: Date | null;
             };
         } & {
+            id: string;
             email: string;
             role: import(".prisma/client").$Enums.Role;
-            id: string;
             passwordHash: string;
             createdAt: Date;
             updatedAt: Date;
@@ -304,12 +304,12 @@ export declare class TrpcService {
             }>;
             _meta: object;
             _ctx_out: {
-                prisma: import("../prisma/prisma.service").PrismaService;
                 user: {
                     id: string;
                     email: string;
                     role: string;
                 };
+                prisma: import("../prisma/prisma.service").PrismaService;
             };
             _input_in: {
                 titulo?: string;
@@ -341,18 +341,18 @@ export declare class TrpcService {
             })[];
         } & {
             id: string;
+            empresaId: string;
             titulo: string;
-            modalidad: import(".prisma/client").$Enums.Modalidad | null;
             descripcion: string;
             ubicacion: string | null;
+            modalidad: import(".prisma/client").$Enums.Modalidad | null;
             tipoContrato: string | null;
             salarioMin: number | null;
             salarioMax: number | null;
-            vacantes: number;
-            fechaCierre: Date | null;
             activa: boolean;
-            empresaId: string;
             fechaPublicacion: Date;
+            fechaCierre: Date | null;
+            vacantes: number;
             vacantesCubiertas: number;
         })[]>;
         ofertas_create: import("@trpc/server").BuildProcedure<"mutation", {
@@ -364,12 +364,12 @@ export declare class TrpcService {
             }>;
             _meta: object;
             _ctx_out: {
-                prisma: import("../prisma/prisma.service").PrismaService;
                 user: {
                     id: string;
                     email: string;
                     role: string;
                 };
+                prisma: import("../prisma/prisma.service").PrismaService;
             };
             _input_in: {
                 titulo: string;
@@ -397,18 +397,18 @@ export declare class TrpcService {
             _output_out: typeof import("@trpc/server").unsetMarker;
         }, {
             id: string;
+            empresaId: string;
             titulo: string;
-            modalidad: import(".prisma/client").$Enums.Modalidad | null;
             descripcion: string;
             ubicacion: string | null;
+            modalidad: import(".prisma/client").$Enums.Modalidad | null;
             tipoContrato: string | null;
             salarioMin: number | null;
             salarioMax: number | null;
-            vacantes: number;
-            fechaCierre: Date | null;
             activa: boolean;
-            empresaId: string;
             fechaPublicacion: Date;
+            fechaCierre: Date | null;
+            vacantes: number;
             vacantesCubiertas: number;
         }>;
         ofertas_update: import("@trpc/server").BuildProcedure<"mutation", {
@@ -420,12 +420,12 @@ export declare class TrpcService {
             }>;
             _meta: object;
             _ctx_out: {
-                prisma: import("../prisma/prisma.service").PrismaService;
                 user: {
                     id: string;
                     email: string;
                     role: string;
                 };
+                prisma: import("../prisma/prisma.service").PrismaService;
             };
             _input_in: {
                 id: string;
@@ -455,18 +455,18 @@ export declare class TrpcService {
             _output_out: typeof import("@trpc/server").unsetMarker;
         }, {
             id: string;
+            empresaId: string;
             titulo: string;
-            modalidad: import(".prisma/client").$Enums.Modalidad | null;
             descripcion: string;
             ubicacion: string | null;
+            modalidad: import(".prisma/client").$Enums.Modalidad | null;
             tipoContrato: string | null;
             salarioMin: number | null;
             salarioMax: number | null;
-            vacantes: number;
-            fechaCierre: Date | null;
             activa: boolean;
-            empresaId: string;
             fechaPublicacion: Date;
+            fechaCierre: Date | null;
+            vacantes: number;
             vacantesCubiertas: number;
         }>;
         ofertas_cerrar: import("@trpc/server").BuildProcedure<"mutation", {
@@ -478,12 +478,12 @@ export declare class TrpcService {
             }>;
             _meta: object;
             _ctx_out: {
-                prisma: import("../prisma/prisma.service").PrismaService;
                 user: {
                     id: string;
                     email: string;
                     role: string;
                 };
+                prisma: import("../prisma/prisma.service").PrismaService;
             };
             _input_in: {
                 id: string;
@@ -495,18 +495,18 @@ export declare class TrpcService {
             _output_out: typeof import("@trpc/server").unsetMarker;
         }, {
             id: string;
+            empresaId: string;
             titulo: string;
-            modalidad: import(".prisma/client").$Enums.Modalidad | null;
             descripcion: string;
             ubicacion: string | null;
+            modalidad: import(".prisma/client").$Enums.Modalidad | null;
             tipoContrato: string | null;
             salarioMin: number | null;
             salarioMax: number | null;
-            vacantes: number;
-            fechaCierre: Date | null;
             activa: boolean;
-            empresaId: string;
             fechaPublicacion: Date;
+            fechaCierre: Date | null;
+            vacantes: number;
             vacantesCubiertas: number;
         }>;
         ofertas_postular: import("@trpc/server").BuildProcedure<"mutation", {
@@ -518,12 +518,12 @@ export declare class TrpcService {
             }>;
             _meta: object;
             _ctx_out: {
-                prisma: import("../prisma/prisma.service").PrismaService;
                 user: {
                     id: string;
                     email: string;
                     role: string;
                 };
+                prisma: import("../prisma/prisma.service").PrismaService;
             };
             _input_in: {
                 ofertaId: string;
@@ -538,11 +538,11 @@ export declare class TrpcService {
         }, {
             id: string;
             ofertaId: string;
-            comentario: string | null;
-            estado: import(".prisma/client").$Enums.EstadoPostulacion;
             egresadoId: string;
+            estado: import(".prisma/client").$Enums.EstadoPostulacion;
             fechaPostulacion: Date;
             fechaEstado: Date;
+            comentario: string | null;
         }>;
         postulaciones_actualizar_estado: import("@trpc/server").BuildProcedure<"mutation", {
             _config: import("@trpc/server").RootConfig<{
@@ -553,31 +553,31 @@ export declare class TrpcService {
             }>;
             _meta: object;
             _ctx_out: {
-                prisma: import("../prisma/prisma.service").PrismaService;
                 user: {
                     id: string;
                     email: string;
                     role: string;
                 };
+                prisma: import("../prisma/prisma.service").PrismaService;
             };
             _input_in: {
                 postulacionId: string;
-                estado: "postulado" | "revision" | "entrevista" | "contratado" | "rechazado";
+                estado: "contratado" | "postulado" | "revision" | "entrevista" | "rechazado";
             };
             _input_out: {
                 postulacionId: string;
-                estado: "postulado" | "revision" | "entrevista" | "contratado" | "rechazado";
+                estado: "contratado" | "postulado" | "revision" | "entrevista" | "rechazado";
             };
             _output_in: typeof import("@trpc/server").unsetMarker;
             _output_out: typeof import("@trpc/server").unsetMarker;
         }, {
             id: string;
             ofertaId: string;
-            comentario: string | null;
-            estado: import(".prisma/client").$Enums.EstadoPostulacion;
             egresadoId: string;
+            estado: import(".prisma/client").$Enums.EstadoPostulacion;
             fechaPostulacion: Date;
             fechaEstado: Date;
+            comentario: string | null;
         }>;
         postulaciones_mis_ofertas: import("@trpc/server").BuildProcedure<"query", {
             _config: import("@trpc/server").RootConfig<{
@@ -588,12 +588,12 @@ export declare class TrpcService {
             }>;
             _meta: object;
             _ctx_out: {
-                prisma: import("../prisma/prisma.service").PrismaService;
                 user: {
                     id: string;
                     email: string;
                     role: string;
                 };
+                prisma: import("../prisma/prisma.service").PrismaService;
             };
             _input_in: typeof import("@trpc/server").unsetMarker;
             _input_out: typeof import("@trpc/server").unsetMarker;
@@ -606,39 +606,39 @@ export declare class TrpcService {
                 };
             } & {
                 id: string;
-                carrera: string | null;
-                anioEgreso: number | null;
                 nombres: string;
                 apellidos: string;
                 telefono: string | null;
+                carrera: string | null;
+                anioEgreso: number | null;
                 cvUrl: string | null;
                 habilidadesBlandas: string | null;
                 fechaNacimiento: Date | null;
             };
             oferta: {
                 id: string;
+                empresaId: string;
                 titulo: string;
-                modalidad: import(".prisma/client").$Enums.Modalidad | null;
                 descripcion: string;
                 ubicacion: string | null;
+                modalidad: import(".prisma/client").$Enums.Modalidad | null;
                 tipoContrato: string | null;
                 salarioMin: number | null;
                 salarioMax: number | null;
-                vacantes: number;
-                fechaCierre: Date | null;
                 activa: boolean;
-                empresaId: string;
                 fechaPublicacion: Date;
+                fechaCierre: Date | null;
+                vacantes: number;
                 vacantesCubiertas: number;
             };
         } & {
             id: string;
             ofertaId: string;
-            comentario: string | null;
-            estado: import(".prisma/client").$Enums.EstadoPostulacion;
             egresadoId: string;
+            estado: import(".prisma/client").$Enums.EstadoPostulacion;
             fechaPostulacion: Date;
             fechaEstado: Date;
+            comentario: string | null;
         })[]>;
         ofertas_delete: import("@trpc/server").BuildProcedure<"mutation", {
             _config: import("@trpc/server").RootConfig<{
@@ -649,12 +649,12 @@ export declare class TrpcService {
             }>;
             _meta: object;
             _ctx_out: {
-                prisma: import("../prisma/prisma.service").PrismaService;
                 user: {
                     id: string;
                     email: string;
                     role: string;
                 };
+                prisma: import("../prisma/prisma.service").PrismaService;
             };
             _input_in: {
                 id: string;
@@ -666,18 +666,18 @@ export declare class TrpcService {
             _output_out: typeof import("@trpc/server").unsetMarker;
         }, {
             id: string;
+            empresaId: string;
             titulo: string;
-            modalidad: import(".prisma/client").$Enums.Modalidad | null;
             descripcion: string;
             ubicacion: string | null;
+            modalidad: import(".prisma/client").$Enums.Modalidad | null;
             tipoContrato: string | null;
             salarioMin: number | null;
             salarioMax: number | null;
-            vacantes: number;
-            fechaCierre: Date | null;
             activa: boolean;
-            empresaId: string;
             fechaPublicacion: Date;
+            fechaCierre: Date | null;
+            vacantes: number;
             vacantesCubiertas: number;
         }>;
         ofertas_mis_ofertas: import("@trpc/server").BuildProcedure<"query", {
@@ -689,12 +689,12 @@ export declare class TrpcService {
             }>;
             _meta: object;
             _ctx_out: {
-                prisma: import("../prisma/prisma.service").PrismaService;
                 user: {
                     id: string;
                     email: string;
                     role: string;
                 };
+                prisma: import("../prisma/prisma.service").PrismaService;
             };
             _input_in: typeof import("@trpc/server").unsetMarker;
             _input_out: typeof import("@trpc/server").unsetMarker;
@@ -710,18 +710,18 @@ export declare class TrpcService {
             };
         } & {
             id: string;
+            empresaId: string;
             titulo: string;
-            modalidad: import(".prisma/client").$Enums.Modalidad | null;
             descripcion: string;
             ubicacion: string | null;
+            modalidad: import(".prisma/client").$Enums.Modalidad | null;
             tipoContrato: string | null;
             salarioMin: number | null;
             salarioMax: number | null;
-            vacantes: number;
-            fechaCierre: Date | null;
             activa: boolean;
-            empresaId: string;
             fechaPublicacion: Date;
+            fechaCierre: Date | null;
+            vacantes: number;
             vacantesCubiertas: number;
         })[]>;
         analitica: import("@trpc/server").CreateRouterInner<import("@trpc/server").RootConfig<{
@@ -739,12 +739,12 @@ export declare class TrpcService {
                 }>;
                 _meta: object;
                 _ctx_out: {
-                    prisma: import("../prisma/prisma.service").PrismaService;
                     user: {
                         id: string;
                         email: string;
                         role: string;
                     };
+                    prisma: import("../prisma/prisma.service").PrismaService;
                 };
                 _input_in: typeof import("@trpc/server").unsetMarker;
                 _input_out: typeof import("@trpc/server").unsetMarker;
@@ -763,12 +763,12 @@ export declare class TrpcService {
                 }>;
                 _meta: object;
                 _ctx_out: {
-                    prisma: import("../prisma/prisma.service").PrismaService;
                     user: {
                         id: string;
                         email: string;
                         role: string;
                     };
+                    prisma: import("../prisma/prisma.service").PrismaService;
                 };
                 _input_in: typeof import("@trpc/server").unsetMarker;
                 _input_out: typeof import("@trpc/server").unsetMarker;
@@ -787,12 +787,12 @@ export declare class TrpcService {
                 }>;
                 _meta: object;
                 _ctx_out: {
-                    prisma: import("../prisma/prisma.service").PrismaService;
                     user: {
                         id: string;
                         email: string;
                         role: string;
                     };
+                    prisma: import("../prisma/prisma.service").PrismaService;
                 };
                 _input_in: typeof import("@trpc/server").unsetMarker;
                 _input_out: typeof import("@trpc/server").unsetMarker;
@@ -812,12 +812,12 @@ export declare class TrpcService {
             }>;
             _meta: object;
             _ctx_out: {
-                prisma: import("../prisma/prisma.service").PrismaService;
                 user: {
                     id: string;
                     email: string;
                     role: string;
                 };
+                prisma: import("../prisma/prisma.service").PrismaService;
             };
             _input_in: {
                 id: string;
@@ -839,12 +839,12 @@ export declare class TrpcService {
             }>;
             _meta: object;
             _ctx_out: {
-                prisma: import("../prisma/prisma.service").PrismaService;
                 user: {
                     id: string;
                     email: string;
                     role: string;
                 };
+                prisma: import("../prisma/prisma.service").PrismaService;
             };
             _input_in: {
                 id: string;
@@ -865,17 +865,17 @@ export declare class TrpcService {
                     categoria: import(".prisma/client").$Enums.CategoriaHabilidad;
                 };
             } & {
+                egresadoId: string;
                 habilidadId: string;
                 nivel: number;
-                egresadoId: string;
             })[];
         } & {
             id: string;
-            carrera: string | null;
-            anioEgreso: number | null;
             nombres: string;
             apellidos: string;
             telefono: string | null;
+            carrera: string | null;
+            anioEgreso: number | null;
             cvUrl: string | null;
             habilidadesBlandas: string | null;
             fechaNacimiento: Date | null;
@@ -895,12 +895,12 @@ export declare class TrpcService {
                 }>;
                 _meta: object;
                 _ctx_out: {
-                    prisma: import("../prisma/prisma.service").PrismaService;
                     user: {
                         id: string;
                         email: string;
                         role: string;
                     };
+                    prisma: import("../prisma/prisma.service").PrismaService;
                 };
                 _input_in: {
                     tipo: string;
@@ -931,12 +931,12 @@ export declare class TrpcService {
                 }>;
                 _meta: object;
                 _ctx_out: {
-                    prisma: import("../prisma/prisma.service").PrismaService;
                     user: {
                         id: string;
                         email: string;
                         role: string;
                     };
+                    prisma: import("../prisma/prisma.service").PrismaService;
                 };
                 _input_in: typeof import("@trpc/server").unsetMarker;
                 _input_out: typeof import("@trpc/server").unsetMarker;
@@ -961,12 +961,12 @@ export declare class TrpcService {
                 }>;
                 _meta: object;
                 _ctx_out: {
-                    prisma: import("../prisma/prisma.service").PrismaService;
                     user: {
                         id: string;
                         email: string;
                         role: string;
                     };
+                    prisma: import("../prisma/prisma.service").PrismaService;
                 };
                 _input_in: {
                     reporteId: string;
@@ -996,12 +996,12 @@ export declare class TrpcService {
             }>;
             _meta: object;
             _ctx_out: {
-                prisma: import("../prisma/prisma.service").PrismaService;
                 user: {
                     id: string;
                     email: string;
                     role: string;
                 };
+                prisma: import("../prisma/prisma.service").PrismaService;
             };
             _input_in: typeof import("@trpc/server").unsetMarker;
             _input_out: typeof import("@trpc/server").unsetMarker;
@@ -1018,28 +1018,28 @@ export declare class TrpcService {
                 };
             } & {
                 id: string;
+                empresaId: string;
                 titulo: string;
-                modalidad: import(".prisma/client").$Enums.Modalidad | null;
                 descripcion: string;
                 ubicacion: string | null;
+                modalidad: import(".prisma/client").$Enums.Modalidad | null;
                 tipoContrato: string | null;
                 salarioMin: number | null;
                 salarioMax: number | null;
-                vacantes: number;
-                fechaCierre: Date | null;
                 activa: boolean;
-                empresaId: string;
                 fechaPublicacion: Date;
+                fechaCierre: Date | null;
+                vacantes: number;
                 vacantesCubiertas: number;
             };
         } & {
             id: string;
             ofertaId: string;
-            comentario: string | null;
-            estado: import(".prisma/client").$Enums.EstadoPostulacion;
             egresadoId: string;
+            estado: import(".prisma/client").$Enums.EstadoPostulacion;
             fechaPostulacion: Date;
             fechaEstado: Date;
+            comentario: string | null;
         })[]>;
     }>;
 }
