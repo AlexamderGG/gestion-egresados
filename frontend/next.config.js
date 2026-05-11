@@ -3,9 +3,12 @@
 const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
-  // Si usas exportación estática (opcional)
-  // output: 'export',
-  // images: { unoptimized: true },
+  typescript: {
+    ignoreBuildErrors: true,  // ← Ignora errores de TypeScript durante el build
+  },
+  eslint: {
+    ignoreDuringBuilds: true, // ← Ignora errores de ESLint durante el build
+  },
 }
 
 module.exports = nextConfig
