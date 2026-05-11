@@ -1,8 +1,11 @@
+// frontend/next.config.js
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
-  transpilePackages: ['@trpc/server', '@trpc/client', '@trpc/react-query'],
-};
+  // Si usas exportación estática (opcional)
+  // output: 'export',
+  // images: { unoptimized: true },
+}
 
-module.exports = nextConfig;
+module.exports = nextConfig

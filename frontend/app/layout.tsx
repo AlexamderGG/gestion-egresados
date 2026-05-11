@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import { TRPCProvider } from "./providers";
+import { TRPCProvider } from "./providers/trpc-provider";
+import { ThemeProvider } from "./providers/theme-provider";
 import { Toaster } from 'sonner';
-import { ThemeProvider } from './providers/theme-provider';
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -21,8 +21,8 @@ export default function RootLayout({
     <html lang="es" suppressHydrationWarning>
       <body className={inter.className}>
         <ThemeProvider>
-        <Toaster richColors position="top-right" />
-        <TRPCProvider>{children}</TRPCProvider>
+          <Toaster richColors position="top-right" />
+          <TRPCProvider>{children}</TRPCProvider>
         </ThemeProvider>
       </body>
     </html>
