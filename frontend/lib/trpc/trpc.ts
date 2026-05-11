@@ -1,7 +1,7 @@
-// Sin importar el backend - usar any
 import { createTRPCReact } from '@trpc/react-query';
+import type { AppRouter } from '../../../backend/src/trpc/trpc.router';
 
-export const trpc = createTRPCReact();
+export const trpc = createTRPCReact<AppRouter>();
 
 export function getBaseUrl() {
   if (typeof window !== 'undefined' && process.env.NEXT_PUBLIC_VERCEL_URL) {

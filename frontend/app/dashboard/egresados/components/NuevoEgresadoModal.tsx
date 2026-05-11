@@ -52,7 +52,7 @@ export function NuevoEgresadoModal({ onSuccess }: { onSuccess?: () => void }) {
       setOpen(false);
       onSuccess?.();
     },
-    onError: (error) => toast.error(error.message)
+    onError: (error: any) => toast.error(error.message)
   });
 
   const form = useForm<EgresadoForm>({

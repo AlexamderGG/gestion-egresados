@@ -65,7 +65,7 @@ export default function EgresadosPage() {
                 </td>
               </tr>
             ) : (
-              egresados?.map((eg) => (
+              egresados?.map((eg: any) => (
                 <tr key={eg.id}>
                   <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
                     {eg.nombres} {eg.apellidos}

@@ -72,7 +72,7 @@ export default function OfertasPage() {
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-        {ofertas?.map((oferta) => (
+        {ofertas?.map((oferta: any) => (
           <Card key={oferta.id} className="hover:shadow-lg transition-shadow">
             <CardHeader>
               <div className="flex justify-between items-start">

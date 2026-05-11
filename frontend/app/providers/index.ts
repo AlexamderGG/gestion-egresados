@@ -1,2 +1,2 @@
-export { TRPCProvider } from './trpc-provider';
+export { TRPCProvider } from '@/lib/trpc/provider';
 export { ThemeProvider } from './theme-provider';

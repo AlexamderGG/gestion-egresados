@@ -138,7 +138,7 @@ export default function AdminDashboard() {
         </CardHeader>
         <CardContent>
           <div className="space-y-4">
-            {habilidades?.slice(0, 5).map((h, index) => (
+            {habilidades?.slice(0, 5).map((h: any, index: number) => (
               <div key={h.habilidad_id} className="flex items-center justify-between">
                 <span className="text-sm font-medium text-gray-700 dark:text-gray-300">
                   {h.habilidad_nombre}
