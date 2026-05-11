@@ -17,11 +17,7 @@
     "forceConsistentCasingInFileNames": false,
     "noFallthroughCasesInSwitch": false,
     "esModuleInterop": true,
-    "jsx": "react-jsx",
-    "baseUrl": "./",
-    "paths": {
-      "@/*": ["src/*"]
-    }
+    "jsx": "react-jsx"
   },
   "include": ["src/**/*", "prisma/**/*"],
   "exclude": ["node_modules", "dist"]
