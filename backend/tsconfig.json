@@ -1,6 +1,7 @@
 {
   "compilerOptions": {
     "ignoreDeprecations": "5.0",
+    "baseUrl": "./",
     "module": "commonjs",
     "declaration": true,
     "removeComments": true,
@@ -20,7 +21,7 @@
     "esModuleInterop": true,
     "jsx": "react-jsx",               // ← línea agregada
     "paths": {
-      "@/*": ["./src/*"]
+      "@/*": ["src/*"]
     }
   },
   "include": ["src/**/*", "prisma/**/*"],
