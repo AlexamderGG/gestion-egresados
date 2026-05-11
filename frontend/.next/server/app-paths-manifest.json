@@ -1,8 +1,5 @@
 {
-  "/dashboard/admin/page": "app/dashboard/admin/page.js",
-  "/dashboard/reportes/page": "app/dashboard/reportes/page.js",
-  "/dashboard/analitica/page": "app/dashboard/analitica/page.js",
-  "/dashboard/ofertas/page": "app/dashboard/ofertas/page.js",
-  "/dashboard/egresados/page": "app/dashboard/egresados/page.js",
-  "/dashboard/page": "app/dashboard/page.js"
+  "/page": "app/page.js",
+  "/dashboard/page": "app/dashboard/page.js",
+  "/dashboard/admin/page": "app/dashboard/admin/page.js"
 }
