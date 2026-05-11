@@ -1,13 +1,18 @@
-// frontend/next.config.js
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
   typescript: {
-    ignoreBuildErrors: true,  // ← Ignora errores de TypeScript durante el build
+    // ⚠️ Ignorar errores de TypeScript durante el build
+    ignoreBuildErrors: true,
   },
   eslint: {
-    ignoreDuringBuilds: true, // ← Ignora errores de ESLint durante el build
+    // ⚠️ Ignorar errores de ESLint durante el build
+    ignoreDuringBuilds: true,
+  },
+  output: 'standalone',
+  images: {
+    unoptimized: true,
   },
 }
 
