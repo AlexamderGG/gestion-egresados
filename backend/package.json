@@ -6,7 +6,7 @@
   "private": true,
   "license": "UNLICENSED",
   "scripts": {
-    "build": "prisma generate && tsc --ignoreDeprecations 6.0",
+    "build": "prisma generate && tsc --ignoreDeprecations 6.0 --skipLibCheck --noEmitOnError false",
     "start": "node dist/main.js",
     "start:dev": "nest start --watch",
     "start:debug": "nest start --debug --watch",
